@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+ xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+ xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+ xmlns:spring="http://www.springframework.org/tags"
+ xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+ xmlns:form="http://www.springframework.org/tags/form"
+ xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+ 
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <util:grid-scripts>
+    </util:grid-scripts>
+    <style type="text/css">
+    	.selBox{ width:180px;}
+    </style>
+     <spring:url value="/resources/uiframework/common/grid.js" var="grid_create"/>
+    <script src="${grid_create}" type="text/javascript"><!-- required for FF3 and Opera --> </script>
+    <script>
+    function updateProperty(propertyId)
+    {
+    	var link = "/aaiisandmms/aetemployeeproperty/updateForm/"+propertyId;
+    	window.open(link,"_self");
+    }
+    function disposeProperty(disposeId)
+    {
+    	var link = "/aaiisandmms/aetemployeeproperty/disposeForm/"+disposeId;
+    	window.open(link,"_self");
+    }
+    
+    </script>
+    
+    <c:if test="${not empty message}">
+    	<label style="font-size: medium; color: red" >${message}</label>
+    </c:if>
+    <c:if test="${empty message}">    
+    <form name="listPropertyForm" method="post" action="/aaiisandmms/aetemployeeproperty/create">
+       <center style="color: navy; font-weight: bold; font-size: large;">Immovable Property Acquired</center>
+    <util:panel title="Personal Details" id="personalDetails" >
+        <div>
+			<table align = "center"> 
+  				<tr>
+       				<td>
+       				<label>Employee No.</label>
+       	 				<input type="text" name="empNo" id = "empNo" size="25" value="${empObj.empNo}" style="height:20px; background-color: silver;" readonly="true"/>
+       				</td>
+       				<td>
+       				<label>Computer No.</label>
+       	 				<input type="text"  name="compNo" id = "compNo" size="25" value="${empObj.computerNo}" style="height:20px; background-color: silver;" readonly="true"/>
+       				</td>
+        		</tr>
+        		<tr>
+        			<td>
+       					<label>Employee Name</label>
+       			 		<input type="text" name="empName" id="empName" size="25" value="${empObj.empKnownAs}" style="height:20px; background-color: silver;" readonly="true"/>
+        			</td>
+        			<td>
+	        			<label>Designation</label>
+	       		 		<input type="text"  name="designation" id="designation" size="25" value="${empObj.designationCode.designationName}" style="height:20px; background-color: silver;" readonly="true"/>
+	        		</td>	        		
+        		</tr>
+        		<tr>
+        			<td>
+	        			<label>Division</label>
+	       		 		<input type="text"  name="designation" id="designation" size="25" value="${empObj.divisionId.officeShortName}" style="height:20px; background-color: silver;" readonly="true"/>
+	        		</td>	        		
+        		</tr>        		
+			</table> 	            
+		</div>
+       	</util:panel>  
+       	<util:panel title="List of Immovable Properties Acquired" id="immovablepropDtls">
+       	<div style="overflow:scroll">
+       	<table>
+       		<tr>
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText1">DATE OF<BR>ACQUISITION </BR></span>  
+                </td>
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText1">PROBABE DATE OF<BR>ACQUISITION </BR></span>  
+                </td>
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText1">MODE OF<BR>TRANSACTION</BR></span>  
+                </td> 
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText1">PROPERTY<BR>DESCRIPTION</BR></span>  
+                </td>
+                <td width="22%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText1">PROPERTY<BR>LOCATION</BR></span> 
+                     
+                </td> 
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText1">AREA OF<BR>PROPERTY</BR></span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText1">VALUE OF<BR>PROPERTY</BR></span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText1">PROPERTY<br>DETAILS</br></span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-right:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText1">PT-2<br>FORM</br></span>
+                </td>
+                 <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-right:1px #000000 dotted;'>
+                    <span class="ClsText1">DISPOSE<br>FORM</br></span>
+                </td>                                
+       		</tr>
+       		<c:forEach var = "property" items="${propList}" varStatus = "loop">
+       			<tr>
+       			<td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                   <span class="ClsText">${property.acquisitionDate}</span> 
+                </td>
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                   <span class="ClsText">${property.probableAcquisitionDate}</span>
+                </td>
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                   <span class="ClsText">${property.modeOfTransaction}</span>
+                </td> 
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                 <span class="ClsText">${property.propertyDesc}</span> 
+                </td>
+                <td width="22%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                   <span class="ClsText">${property.propertyAddress}</span>
+                 </td> 
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                  <span class="ClsText">${property.areaOfProperty}</span> 
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText">${property.valueOfProperty}</span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText"><a href="javascript:updateProperty(${property.propId})" >Edit</a></span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-right:1px #000000 dotted;border-left:1px #000000 dotted;'>
+                    <span class="ClsText">View and Print</span>
+                    </td>
+                    <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;;border-bottom:1px #000000 dotted;border-top:1px #000000 dotted;border-right:1px #000000 dotted;'>
+                    <span class="ClsText"><a href="javascript:disposeProperty(${property.propId})" >Dispose</a></span>
+                    </td>			
+       			</tr>
+       		</c:forEach>
+       		
+       		
+       	</table>
+       	</div>
+       	</util:panel>
+       </form>
+
+	</c:if>
+	
+</div>

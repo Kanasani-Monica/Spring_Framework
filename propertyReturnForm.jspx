@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+ xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+ xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+ xmlns:spring="http://www.springframework.org/tags"
+ xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+ xmlns:form="http://www.springframework.org/tags/form"
+ xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+ 
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <util:grid-scripts>
+    </util:grid-scripts>
+    <style type="text/css">
+    	.selBox{ width:180px;}
+    </style>
+    <spring:url value="/resources/uiframework/common/grid.js" var="grid_create"/>
+    <script src="${grid_create}" type="text/javascript"><!-- required for FF3 and Opera --> </script>
+    <c:if test="${not empty message}">
+    	<label style="font-size: medium; color: red" >${message}</label>
+    </c:if>
+    <c:if test="${empty message}">    
+    <form name="propertyReturnForm" method="post" action="/aaiisandmms/aetemployeeproperty/">
+       <center style="color: navy; font-weight: bold; font-size: large;">Property Return</center>
+    <util:panel title="Personal Details" id="personalDetails" >
+        <div>
+			<table align = "center"> 
+  				<tr>
+       				<td>
+       				<label>Employee No.</label>
+       	 				<input type="text" name="empNo" id = "empNo" size="25" value="${empObj.empNo}" style="height:20px; background-color: silver;" readonly="true"/>
+       				</td>
+       				<td>
+       				<label>Computer No.</label>
+       	 				<input type="text"  name="compNo" id = "compNo" size="25" value="${empObj.computerNo}" style="height:20px; background-color: silver;" readonly="true"/>
+       				</td>
+        		</tr>
+        		<tr>
+        			<td>
+       					<label>Employee Name</label>
+       			 		<input type="text" name="empName" id="empName" size="25" value="${empObj.empKnownAs}" style="height:20px; background-color: silver;" readonly="true"/>
+        			</td>
+        			<td>
+	        			<label>Designation</label>
+	       		 		<input type="text"  name="designation" id="designation" size="25" value="${empObj.designationCode.designationName}" style="height:20px; background-color: silver;" readonly="true"/>
+	        		</td>	        		
+        		</tr>
+        		<tr>
+        			<td>
+	        			<label>Division</label>
+	       		 		<input type="text"  name="designation" id="designation" size="25" value="${empObj.divisionId.officeShortName}" style="height:20px; background-color: silver;" readonly="true"/>
+	        		</td>	        		
+        		</tr>        		
+			</table> 	            
+		</div>
+       	</util:panel>  
+       	<util:panel title="List of Property Return" id="propertyReturn">
+       	<div style="overflow:scroll">
+       	<table>
+       		<tr>
+       		<td width="5%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText1">TYPE</span>  
+                </td>
+                <td width="20%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText1">DESCRIPTION AND<BR>LOCATION </BR>OF PROPERTY</span>  
+                </td>
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText1">FREE HOLD<BR>LEASE</BR></span>  
+                </td> 
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText1">AREA</span>  
+                </td>
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText1">VALUE</span>                 
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText1">ACQUIRED<BR>IN THE NAME OF </BR></span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText1">DATE OF<BR>ACQUISITION</BR></span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText1">ACQUIRED<br>FROM</br></span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;border-right:1px solid black;'>
+                    <span class="ClsText1">MODE OF<br>ACQUISITION</br></span>
+                </td>
+                 <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;;border-bottom:1px solid black;border-top:1px solid black;border-right:1px solid black;'>
+                    <span class="ClsText1">ANNUAL<br>INCOME</br>FROM THE<br>PROPERTY</br></span>
+                </td> 
+       		</tr>
+       		<c:forEach var = "property" items="${propertyAcquisitionList}" varStatus = "loop">
+       		<tr>
+       		<td width="5%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText">${property.propertyDesc}</span>  
+                </td>
+                <td width="20%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText">${property.propertyAddress}</span>  
+                </td>
+                 <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText">${property.propertyNature}</span>  
+                </td>
+                <td width="10%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText">${property.areaOfProperty}</span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText">${property.valueOfProperty}</span>  
+                </td>
+                <!-- <td>${property.aetPropertyOwner[0].ownerName}</td> -->
+                
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                   <c:forEach var = "propertyOwner" items="${property.aetPropertyOwner}" varStatus = "loop1">
+                   		<span class="ClsText">${propertyOwner.ownerName}<br>(${propertyOwner.relationShip})</br></span> 
+                   </c:forEach>
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText">${property.probableAcquisitionDate}</span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText">${property.acqFrom}</span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;border-right:1px solid black;'>
+                    <span class="ClsText">${property.modeOfTransaction}</span>  
+                </td>
+                <td width="12%" align="center" style='padding:2PX; background:#D3DFEE;border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;'>
+                    <span class="ClsText"> <input type="text" name="income" id="income"  /></span>  
+                </td>
+                </tr>
+                </c:forEach>
+       		</table>
+       	</div>
+       	</util:panel>
+       	<center>
+             <button dojotype="dijit.form.submit" type="submit" onClick="return printForm();" >Print</button>
+		</center> 
+       </form>
+
+	</c:if>   
+    <script type="text/javascript" language="JavaScript">  	
+      function printForm() { 
+      			var p = window.confirm("Are you sure to continue?");
+      			if(p){
+      				return true;
+      			} else {
+      				return false;	
+      			}
+      }
+ 		           					
+</script>
+	
+</div>
+      

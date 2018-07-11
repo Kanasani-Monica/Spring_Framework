@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+ xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+ xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+ xmlns:spring="http://www.springframework.org/tags"
+ xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+ xmlns:form="http://www.springframework.org/tags/form"
+ xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+ 
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <util:grid-scripts>
+    </util:grid-scripts>
+    <style type="text/css">
+    	.selBox{ width:180px;}
+    </style>
+    <spring:url value="/resources/uiframework/common/grid.js" var="grid_create"/>
+    <script src="${grid_create}" type="text/javascript"><!-- required for FF3 and Opera --> </script>
+    
+    <c:if test="${not empty message}">
+    	<label style="font-size: medium; color: red" >${message}</label>
+    </c:if>
+    <c:if test="${empty message}">    
+    <form name="propAcquisitionForm" method="post" action="/aaiisandmms/aetemployeeproperty/create">
+    	<center style="color: navy; font-weight: bold; font-size: large;">Immovable Property Acquisition Form</center>
+        <util:panel title="Personal Details" id="personalDetails" >
+        <div>
+			<table align = "center"> 
+  				<tr>
+       				<td>
+       				<label>Employee No.</label>
+       	 				<input type="text"  name="empNo" id = "empNo" size="25" value="${empObj.empNo}" style="height:20px; background-color: silver;" readonly="true"/>
+       				</td>
+       				<td>
+       				<label>Computer No.</label>
+       	 				<input type="text"  name="compNo" id = "compNo" size="25" value="${empObj.computerNo}" style="height:20px; background-color: silver;" readonly="true"/>
+       				</td>
+        		</tr>
+        		<tr>
+        			<td>
+       					<label>Employee Name</label>
+       			 		<input type="text" name="empName" id="empName" size="25" value="${empObj.empKnownAs}" style="height:20px; background-color: silver;" readonly="true"/>
+        			</td>
+        			<td>
+	        			<label>Designation</label>
+	       		 		<input type="text"  name="designation" id="designation" size="25" value="${empObj.designationCode.designationName}" style="height:20px; background-color: silver;" readonly="true"/>
+	        		</td>	        		
+        		</tr>
+        		<tr>
+        			<td>
+	        			<label>Division</label>
+	       		 		<input type="text"  name="designation" id="designation" size="25" value="${empObj.divisionId.officeShortName}" style="height:20px; background-color: silver;" readonly="true"/>
+	        		</td>	        		
+        		</tr>        		
+			</table> 	            
+		</div>
+       	</util:panel>  
+       	<util:panel title="Immovable Property Details" id="immovablepropDtls">
+       	<div style="overflow:scroll">
+       	<table>
+       		<tr>
+       			<td>
+       				<label >Date of Acquisition</label>
+       				<input type="date" name="acqDate" id="acqDate" />
+       			</td>
+       			<td>
+       				<label >अर्जन की संभावित तारिख Probable Date of Acquisition (In case Property is under Construction)<span style="color:red;">*</span></label>
+       				<input type="text" name="proAcqDate" id="proAcqDate" />
+       			</td>
+       		</tr>
+       		<tr >
+       		    <td >
+       		    	<label>संपत्ति का स्थान/ Location of Property <span style="color:red;">*</span></label>
+       		    	<input type="text" name="locationOfProp" id="locationOfProp" />
+       		    </td>
+       		    <td>
+       		     	<label >संपत्ति का विबरण / Property Description <span style="color:red;">*</span></label>
+       		        <select  style="width: 50%" id="propDesc" name="propDesc">
+                        <option value="">--Select--</option>
+                        <option value="House">House</option>
+                        <option value="Flat">Flat</option>
+                        <option value="Shop">Shop</option>
+                        <option value="Row House">Row House</option>
+                        <option value="House Site">House Site</option>
+                        <option value="Bungalow">Bungalow</option>
+                        <option value="Cultivable Land Dry">Cultivable Land Dry</option>
+                        <option value="Cultivable Land Wet">Cultivable Land Wet</option>
+                        <option value="Other Type">Other Type</option>
+                    </select>
+       		    </td>
+       		    
+            </tr>
+       	    <tr>
+       	     	<td>
+       		     	<label >लेन देन कि रिति /Mode of Transaction <span style="color:red;">*</span></label>
+       		    	<select  style="width: 50%" id="modeOfTrans" name="modeOfTrans">
+                        <option value="">--Select--</option>
+                        <option value="Purchase">Purchase</option>
+                        <option value="Gift">Gift</option>
+                        <option value="Mortgage">Mortgage</option>
+                        <option value="Lease">Lease</option>
+                        <option value="Inherited">Inherited</option>
+                        <option value="Constructed">Constructed</option>                        
+                    </select>
+       		    </td> 
+       		    <td >
+       		    	<label>संपत्ति का स्वरुप /Nature of Property <span style="color:red;">*</span></label>
+       		    	<select  style="width: 50%" id="natureOfProp" name="natureOfProp">
+                        <option value="">--Select--</option>
+                        <option value="Free Hold">Free Hold</option>
+                        <option value="Lease">Lease</option>
+                    </select>
+       		    </td>
+       		 </tr>
+       		<tr>
+       		    <td>
+       		     	<label >संपत्ति का क्षेत्रफल / Area of Property <span style="color:red;">*</span></label>
+       		    	<input type="text" name="areaOfProp" id="areaOfProp"  />
+       		    </td>
+       		    <td>
+       		     	<label > संपत्ति में आवेदक की भागीदारी / Applicant's share in the Property <span style="color:red;">*</span></label>
+       		    	 <select  style="width: 50%" id="prop_share" name="prop_share">
+                                <option value="">--Select--</option>
+                                <option value="Full">Full</option>
+                                <option value="Part">Part</option>
+                                <option value="Nil">Nil</option>
+                            </select>
+       		    </td>
+       	    </tr>
+       		<tr>
+       		   <td colspan="2"> किसके नाम पर अर्जित Acquired in the name of <span style="color:red;">*</span>
+       		         <img src="/aaiisandmms/images/add.jpg" alt="Add Member" height="18" width="18" onclick="addPropOwner('propOwner');"/>
+                    <img src="/aaiisandmms/images/delete.jpg" alt="Remove Member" height="18" width="18" onclick="delPropOwner('propOwner');"/> 
+       		   		 		
+
+                    <table id="propOwner" width="99%" border="0" cellpadding="1" cellspacing="0" style=" border-collapse: collapse; border: 1px solid grey;">
+						
+                            <tr>
+       		     	  			<td>
+       		     	  				<label >नाम /Name</label>
+       		                      	<input type="text" name="name" id="name"  />
+       		                      </td>
+       		                     <td>
+       		     	  				<label >संबंध /Relationship</label>
+       		     	  				 <input type="text" name="relation" id="relation"  />
+                        
+                                  </td>
+       		                  </tr>
+       		         </table>
+       		     </td>
+       		    </tr>
+       		    <tr>
+       		     <td colspan="2">
+       		     	<label style ="width:900px" >संपत्त्ति का मूल्य / Value Of Property <span style="color:red;">*</span></label>
+       		    	<input type="text" name="valueOfProp" id="valueOfProp"  />
+       		        </td>
+       		  </tr>
+       		  <tr >
+       		    <td colspan="2">
+       		    	<label style ="width:900px" >अगर आंशिक भागीदारी है, तो भागीदारी की सीमा / In Case of Partial Share,the extent of such share must be indicated </label>
+       		    	<input type="text" name="partialShare" id="partialShare" />
+       		    </td>
+       		   </tr>
+       		   <tr> 
+       		     <td colspan="2">
+       		    	<label style ="width:900px">लेनदेन सरकारी कर्मचारी कें नाम पर नहीं हो तो उस का नाम तथा संबंध / In Case the Transaction is not exclusively in the name of the Govt.Servant.Particulars of Ownership and Share of each member</label>
+       		    	<input type="text" name="ownerShare" id="ownerShare" />
+       		    </td>
+       		    </tr>
+       		    <tr>
+       		    	<td colspan="2"><b>धन प्राप्ति का स्त्त्रोत / Source of Finance <span style="color:red;">*</span></b>
+       		    	   <table  height="100%" id="srcFinance" width="100%" border="0" cellpadding="1" cellspacing="0" class="tbFinance" style=" border-collapse: collapse; border: 1px solid grey;">
+       		    	   		
+       		    	   			<tr>
+       		    	   				<td colspan="2">
+       		    	   				 <label >निजी बचत / Own Savings</label>
+       		                      	<input type="text" name="ownSavings" id="ownSavings"  />
+       		    	   			    </td>
+       		    	   			 </tr>
+       		    	   			 <tr>
+       		    	   				<td colspan="2">
+       		    	   				 <label >भ.नि.से अग्रिम/वापसी  Adv/Withdrawal from PF</label>
+       		                      	<input type="text" name="withdrawal" id="withdrawal"  />
+       		    	   			    </td>
+       		    	   			 </tr>
+       		    	   			 <tr>
+       		    	   				<td>
+       		    	   				<img src="/aaiisandmms/images/add.jpg" alt="Add Member" height="18" width="18" onclick="addSrcFinance('srcFinance');"/>
+                                    <img src="/aaiisandmms/images/delete.jpg" alt="Remove Member" height="18" width="18" onclick="delSrcFinance('srcFinance');"/> 
+       		    	   				 <label >अन्य स्त्त्रोत/ Other Resources</label>
+       		                          <input type="text" name="otherResource" id="otherResource"  />
+       		    	   			    </td>
+       		    	   			    <td>
+       		    	   				 <label ></label>
+       		                      	<input type="text" name="amount" id="amount"  />
+       		    	   			    </td>
+       		    	   			 </tr>   
+       		    	   </table>
+       		    	</td>
+       		    </tr>
+       		    <tr>	
+       		    	<td colspan="2">
+       		    		<table>
+       		    			<th >पार्टी का नाम तथा पूरा पत्त्ता जिसके साथ लेन देन हुआ था/होने का प्रस्ताव है/ Name and full address of the party with whom transaction was made/Proposed to be made</th>
+       		    				<tr>
+       		    	   				<td colspan="2">
+       		    	   				 <label >पार्टी का नाम / Name of the Party <span style="color:red;">*</span></label>
+       		                      	<input type="text" name="nameOfParty" id="nameOfParty"  />
+       		    	   			    </td>
+       		    	   			 </tr>
+       		    	   			 <tr>
+       		    	   				<td colspan="2">
+       		    	   				 <label >पार्टी का पता / Address of the Party <span style="color:red;">*</span></label>
+       		                      	<input type="text" name="addressOfParty" id="addressOfParty"  />
+       		    	   			    </td>
+       		    	   			 </tr>
+       		    	     </table>
+       		        </td>
+       		     </tr>
+       		     <tr>
+       		       	<td>
+       				  <label >क्या पार्टी का आवेदक से रिश्ता है / Whether the Party is related to applicant?</label>
+       				   <select  style="width: 50%" id="party_flag" name="party_flag">
+                        <option value="">--Select--</option>
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+       			   </td>
+       			   <td>
+       				  <label >यदि हाँ तो रिश्ता बताइए / If yes,state the Relationship</label>
+       				  <input type="text" name="relationDetails" id="relationDetails" />
+       			   </td>
+       			 </tr>
+       			<tr>
+       		     <td colspan="2">
+       		     	<label style ="width:900px" >क्या आवेदक का पार्टी के साथ सरकारी हैसियत से कोई ब्यवहार है ?/ Did the applicant has any dealings with the party in his official capacity at any time,or is the applicant is likely to have any dealings with him in near future?</label>
+       		    	<input type="text" name="dealings" id="dealings"  />
+       		        </td>
+       		    </tr>
+       		    <tr>
+       		     <td colspan="2">
+       		     	<label style ="width:900px" >लेनदेन, किस तरह से किया गया ? ( सीधे अथवा किसी संबैधानिक निकाय या निजी एजंन्सी द्वारा,विग्यापन अथवा मित्रों या एवं संबंधियों के माध्यम से ) पूरा विवरण दे / How was the transaction arranged?(whether direct or through any statutory body or a private agency through advertisement or through friends and relatives.)Full particulars to be given.</label>
+       		    	<input type="text" name="transacDetails" id="transacDetails"  />
+       		        </td>
+       		  </tr>
+       		  <tr>
+       		     <td colspan="2">
+       		     	<label style ="width:900px" >यदि अर्जन भेंट द्वारा है तो क्या नियम 13 के सीसीएस (आचारण) नियम, 1964 के अंतर्गत आवश्यक है ?/ In case of acquisition by gift,whether sanction is also required under Rule 13 of the ccs(conduct)Rules,1964</label>
+       		    	<input type="text" name="gift" id="gift"  />
+       		        </td>
+       		  </tr>
+       		  <tr>
+       		     <td colspan="2">
+       		     	<label style ="width:1000px" >कोई अन्य संबद्ध तथ्य / Any other relevant facts</label>
+       		    	<input type="text" name="relevantFacts" id="relevantFacts" style ="width:1000px"  />
+       		        </td>
+       		  </tr>     		  
+      	</table>  
+      	</div>     	
+       	</util:panel>     	
+       	<center>
+             <button dojotype="dijit.form.submit" type="submit" onClick="return saveForm();" >Submit</button>
+		</center> 
+	</form>
+    </c:if>  
+    <script>
+function addPropOwner(propOwner)
+{    
+    var selOpt = document.getElementById('relation');
+    
+    var tabBody = document.getElementById('propOwner');
+    var rowCount = tabBody.rows.length;
+    var row = tabBody.insertRow(rowCount);
+    
+    var cell1 = row.insertCell(0);
+    var element1 = document.createElement("input");
+    element1.name = "name";
+    element1.type = "text";
+    //element1.size = "50";
+    element1.setAttribute("height", "25");
+    element1.onkeydown = function() {limitText(this,100);};
+    element1.onkeyup = function() {limitText(this,100);};
+    element1.style.width = "60%";
+    
+    cell1.appendChild(element1); 
+    cell1.align="left";
+
+    var cell2 = row.insertCell(1);
+    var element2 = document.createElement("input");
+    element2.name = "relation";
+    element2.type = "text";
+    element2.setAttribute("height", "25");
+    element2.onkeydown = function() {limitText(this,100);};
+    element2.onkeyup = function() {limitText(this,100);};
+    element2.style.width = "60%";
+    
+   
+    
+    cell2.appendChild(element2);   
+    cell2.align="left";
+}
+
+
+
+function delPropOwner(propOwner)
+{
+    
+    /*alert(counter);
+    counter--;*/
+    try{
+        var tabBody = document.getElementById("propOwner");
+        var rowCount = tabBody.rows.length;
+        if (rowCount == 1){
+            return false;
+          ;}
+        else {
+            var i = rowCount - 1;
+            tabBody.deleteRow(i);
+           
+        }
+    }catch(e){
+        alert(e);
+    }
+}
+</script>
+<script>
+function addSrcFinance(srcFinance)
+{    
+    
+    var tabBody = document.getElementById('srcFinance');
+    var rowCount = tabBody.rows.length;
+    var row = tabBody.insertRow(rowCount);
+    
+    var cell1 = row.insertCell(0);
+    var element1 = document.createElement("input");
+    element1.name = "otherResource";
+    element1.type = "text";
+    //element1.size = "50";
+    element1.onkeydown = function() {limitText(this,200);};
+    element1.onkeyup = function() {limitText(this,200);};
+    element1.style.width = "50%";
+    
+    cell1.appendChild(element1); 
+    cell1.align="left";
+
+    var cell2 = row.insertCell(1);
+    var s = document.createTextNode("` ");
+    var span = document.createElement('span');
+    span.style.fontFamily = "RupeeForadianRegular";
+    span.appendChild(s);
+    var element2 = document.createElement("input");
+    element2.name = "amount";
+    element2.type = "text";
+    element2.onkeydown = function() {limitText(this,10);};
+    element2.onkeyup = function() {limitText(this,10);};
+    element2.style.width = "50%";
+    cell2.appendChild(span);
+    cell2.appendChild(element2);   
+    cell2.align="left";
+}
+
+
+function delSrcFinance(srcFinance)
+{
+    try{
+        var tabBody = document.getElementById(srcFinance);
+        var rowCount = tabBody.rows.length;
+        if (rowCount == 3)
+            return false;
+        else {
+            var i = rowCount - 1;
+            tabBody.deleteRow(i);
+        }
+    }catch(e){
+        alert(e);
+    }
+}
+
+
+</script>
+       		   
+    <script type="text/javascript" language="JavaScript">  	
+    
+  //<![CDATA[
+    
+    function saveForm() { 
+    	var validflag = validate();
+       	if(validflag){
+      			var p = window.confirm("Are you sure to continue?");
+      			if(p){
+      				return true;
+      			} else {
+      				return false;	
+      			}
+ 		   } else {				
+				return false;
+ 		   }        					
+	}
+    
+    function validate(){  
+    	var proAcqDate = document.getElementById("proAcqDate").value;
+    	var locationOfProp = document.getElementById("locationOfProp").value;
+    	var propDesc = document.getElementById("propDesc").value;
+    	var modeOfTrans = document.getElementById("modeOfTrans").value; 
+    	var natureOfProp = document.getElementById("natureOfProp").value;
+    	var areaOfProp = document.getElementById("areaOfProp").value;
+    	var prop_share = document.getElementById("prop_share").value;
+    	var name = document.getElementById("name").value;
+    	var relation = document.getElementById("relation").value;
+    	var valueOfProp = document.getElementById("valueOfProp").value;
+    	var nameOfParty = document.getElementById("nameOfParty").value;
+    	var addressOfParty = document.getElementById("addressOfParty").value;
+    	var ownSavings = document.getElementById("ownSavings").value;
+    	var Withdrawal = document.getElementById("Withdrawal").value;
+    	var otherResource = document.getElementById("otherResource").value;
+    	
+    	if(proAcqDate == null || proAcqDate == ""){
+    		alert("Invalid Selection : Mention probable acquisition date.");    		 
+    		return false;
+    	}
+    	
+    	if(locationOfProp == null || locationOfProp == ""){
+    		alert("Invalid Selection : Mention Location of Property.");    		 
+    		return false;
+    	}
+    	if(propDesc == null || propDesc == "" || propDesc == "--Select--" ){
+    		alert("Invalid Selection : Select Property Description.");
+    		return false;
+    	}
+    	if(modeOfTrans == null || modeOfTrans == "" || modeOfTrans == "--Select--"){
+    		alert("Input Error : Select Mode of Transaction");
+    		return false;
+    	}
+    	if(natureOfProp == null || natureOfProp == "" || natureOfProp == "--Select--"){
+    		alert("Invalid Selection : Select Nature Of Property");
+    		return false;
+    	}
+    	if(areaOfProp == null || areaOfProp == ""){
+    		alert("Invalid Selection : Mention Area o Property.");
+    		return false;
+    		}
+        if(prop_share == null || prop_share == "" || prop_share == "--Select--" ){
+    		alert("Invalid Selection : Select Applicant Share in the Property .");
+    		return false;
+    	}
+    	if(name == null || name == ""){
+    		alert("Invalid Selection : Mention Acquired in the Name of.");
+    		return false;
+    	}
+    	if(relation == null || relation == ""){
+    		alert("Invalid Selection : Mention  Relationship of Acquired in the Name of.");
+    		return false;
+    	}
+    	if(valueOfProp == null || valueOfProp == ""){
+    		alert("Invalid Selection : Mention Value of the Property.");
+    		return false;
+    	}
+    	if (!/^[0-9]{1,100}$/.test(+valueOfProp)){
+	    		alert("Value of the Property : Enter Numeric Only");
+	    		return false;
+	    	}
+	    if(nameOfParty == null || nameOfParty == ""){
+    		alert("Invalid Selection : Mention Name of Party.");
+    		return false;
+    	}
+    	if(addressOfParty == null || addressOfParty == ""){
+    		alert("Invalid Selection : Mention Address of Party.");
+    		return false;
+    	}
+    	
+    	 if(document.getElementById("partyFlag").value == "YES"){
+    		var relationDetails = document.getElementById("relationDetails").value;
+    		if(relationDetails == null || relationDetails == ""){
+    			alert("Input Error : Enter Relationship Details.");
+        		return false;        	
+    		}
+    	} 
+    	 return true;
+    	 
+    	 }	    
+	   
+	 	//]]> 
+    </script>
+    
+</div>

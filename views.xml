@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>    
+	<definition extends="pensionLayout" name="aetemployeeproperty/createAcqForm">
+        <put-attribute name="body" value="/WEB-INF/views/aaiis/establishment/vigilance/aetemployeeproperty/createAcqForm.jspx"/>
+    </definition> 
+    
+    <definition extends="pensionLayout" name="aetemployeeproperty/listAllProperty">
+        <put-attribute name="body" value="/WEB-INF/views/aaiis/establishment/vigilance/aetemployeeproperty/listProperty.jspx"/>
+    </definition>  
+    <definition extends="pensionLayout" name="aetemployeeproperty/updateProperty">
+        <put-attribute name="body" value="/WEB-INF/views/aaiis/establishment/vigilance/aetemployeeproperty/updateAcqForm.jspx"/>
+    </definition>
+    <definition extends="pensionLayout" name="aetemployeeproperty/disposeProperty">
+        <put-attribute name="body" value="/WEB-INF/views/aaiis/establishment/vigilance/aetemployeeproperty/disposal.jspx"/>
+    </definition>
+    <definition extends="pensionLayout" name="aetemployeeproperty/propertyReturnForm">
+        <put-attribute name="body" value="/WEB-INF/views/aaiis/establishment/vigilance/aetemployeeproperty/propertyReturnForm.jspx"/>
+    </definition> 
+</tiles-definitions>
